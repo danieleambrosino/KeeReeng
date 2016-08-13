@@ -11,8 +11,8 @@ class Crypto {
  public:
   enum Error {
     NoError,
-    HashCheckFailed,
-    InvalidData
+    InvalidData,
+    HashCheckFailed
   };
 
   explicit Crypto(const QString &password);

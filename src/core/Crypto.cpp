@@ -29,5 +29,38 @@ QByteArray Crypto::encrypt(const QByteArray &bin) {
     ++pos;
   }
 
+  m_error = NoError;
+  return tmp;
+}
+
+QByteArray Crypto::decrypt(const QByteArray &bin) {
+  if (bin.size() < SHA1_SIZE) {
+    m_error = InvalidData;
+    qWarning("Crypto::decrypt : invalid data");
+    return QByteArray();
+  }
+
+  QByteArray tmp = bin;
+
+  int pos(0), size(bin.size());
+  char last(0), current;
+
+  while (pos < size) {
+    current = tmp.at(pos);
+    tmp[pos] = tmp.at(pos) ^ last ^ m_key.at(pos % MD5_SIZE);
+    last = current;
+    ++pos;
+  }
+
+  QByteArray checksum = tmp.left(SHA1_SIZE);
+  tmp = tmp.mid(SHA1_SIZE);
+
+  if (checksum != QCryptographicHash::hash(tmp, QCryptographicHash::Sha1)) {
+    m_error = HashCheckFailed;
+    qWarning("Crypto::decrypt : hash check failed (wrong password?)");
+    return QByteArray();
+  }
+
+  m_error = NoError;
   return tmp;
 }
