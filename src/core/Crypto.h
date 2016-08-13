@@ -14,8 +14,11 @@ class Crypto {
   QByteArray encrypt(const QByteArray &bin);
   QByteArray decrypt(const QByteArray &bin);
 
+  bool hashCheckFailed() { return m_hashCheckFailed; }
+
  private:
   QByteArray m_key;
+  bool m_hashCheckFailed;
 };
 
 #endif //KEEREENG_CRYPTO_H
