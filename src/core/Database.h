@@ -5,8 +5,18 @@
 #ifndef KEEREENG_DATABASE_H
 #define KEEREENG_DATABASE_H
 
-class Database {
+#include <QByteArray>
 
+class QFile;
+
+class Database {
+ public:
+  Database(const QString &filename, const QString &password);
+  ~Database();
+
+ private:
+  QFile *file;
+  QByteArray m_key;
 };
 
 #endif //KEEREENG_DATABASE_H

@@ -6,14 +6,18 @@
 
 #include <QString>
 #include <QCryptographicHash>
+#include <stdexcept>
 
 #define MD5_SIZE  16
 #define SHA1_SIZE 20
 
-Crypto::Crypto(const QString &password) :
-    m_key(QCryptographicHash::hash(password.toUtf8(),
-                                   QCryptographicHash::Md5)),
-    m_error(NoError) {}
+Crypto::Crypto(const QByteArray &key) :
+    m_key(key),
+    m_error(NoError) {
+  if (m_key.size() > MD5_SIZE)
+    throw std::invalid_argument(
+        "Crypto::Crypto : fatal error: key size (MD5_SIZE) must be 16 byte");
+}
 
 QByteArray Crypto::encrypt(const QByteArray &bin) {
   QByteArray tmp = bin;

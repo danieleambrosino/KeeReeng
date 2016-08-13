@@ -15,7 +15,7 @@ class Crypto {
     HashCheckFailed
   };
 
-  explicit Crypto(const QString &password);
+  explicit Crypto(const QByteArray &key);
 
   QByteArray encrypt(const QByteArray &bin);
   QByteArray decrypt(const QByteArray &bin);
