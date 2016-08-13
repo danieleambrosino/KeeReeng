@@ -9,16 +9,22 @@
 
 class Crypto {
  public:
+  enum Error {
+    NoError,
+    HashCheckFailed,
+    InvalidData
+  };
+
   explicit Crypto(const QString &password);
 
   QByteArray encrypt(const QByteArray &bin);
   QByteArray decrypt(const QByteArray &bin);
 
-  bool hashCheckFailed() { return m_hashCheckFailed; }
+  const Error &error() { return m_error; }
 
  private:
   QByteArray m_key;
-  bool m_hashCheckFailed;
+  Error m_error;
 };
 
 #endif //KEEREENG_CRYPTO_H

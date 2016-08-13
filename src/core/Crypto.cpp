@@ -12,7 +12,8 @@
 
 Crypto::Crypto(const QString &password) :
     m_key(QCryptographicHash::hash(password.toUtf8(),
-                                   QCryptographicHash::Md5)) {}
+                                   QCryptographicHash::Md5)),
+    m_error(NoError) {}
 
 QByteArray Crypto::encrypt(const QByteArray &bin) {
   QByteArray tmp = bin;
@@ -30,5 +31,3 @@ QByteArray Crypto::encrypt(const QByteArray &bin) {
 
   return tmp;
 }
-
-
