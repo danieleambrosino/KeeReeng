@@ -1,13 +1,15 @@
 set(SOURCES
     core/Crypto.cpp
     core/Database.cpp
-    gui/mainwindow.cpp)
+    gui/mainwindow.cpp
+    gui/enterpassworddialog.cpp)
 
 set(HEADERS
     core/Crypto.h
     core/Database.h
     core/Entry.h
-    gui/mainwindow.h)
+    gui/mainwindow.h
+    gui/enterpassworddialog.h)
 
 add_library(core STATIC ${SOURCES} ${HEADERS})
 target_link_libraries(core
