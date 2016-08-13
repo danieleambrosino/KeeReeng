@@ -5,12 +5,15 @@
 #include "Database.h"
 
 #include <QFile>
-#include <QtCore/QCryptographicHash>
+#include <QCryptographicHash>
+
+#include "Crypto.h"
 
 Database::Database(const QString &filename, const QString &password) :
     file(new QFile(filename)),
-    m_key(QCryptographicHash::hash(password, QCryptographicHash::Md5)) {}
+    crypto(new Crypto(QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Md5))) {}
 
 Database::~Database() {
   delete file;
+  delete crypto;
 }

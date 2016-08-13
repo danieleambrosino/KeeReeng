@@ -8,15 +8,22 @@
 #include <QByteArray>
 
 class QFile;
+class Crypto;
 
 class Database {
  public:
   Database(const QString &filename, const QString &password);
   ~Database();
 
+  bool save();
+  bool open();
+
  private:
+  bool encrypt();
+  bool decrypt();
+
   QFile *file;
-  QByteArray m_key;
+  Crypto *crypto;
 };
 
 #endif //KEEREENG_DATABASE_H
