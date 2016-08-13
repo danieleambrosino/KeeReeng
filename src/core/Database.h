@@ -5,13 +5,21 @@
 #ifndef KEEREENG_DATABASE_H
 #define KEEREENG_DATABASE_H
 
-#include <QByteArray>
+#include <QList>
 
 class QFile;
+
 class Crypto;
+class Entry;
 
 class Database {
  public:
+  enum Error {
+    NoError,
+    FileNotWritable,
+    FileNotReadable,
+  };
+
   Database(const QString &filename, const QString &password);
   ~Database();
 
@@ -22,9 +30,11 @@ class Database {
   bool encrypt();
   bool decrypt();
 
+  QList<Entry *> m_entries;
   QFile *file;
-  Crypto *crypto;
   QByteArray binary;
+  Crypto *crypto;
+  Error m_error;
   bool locked;
 };
 

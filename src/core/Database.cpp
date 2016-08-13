@@ -18,3 +18,11 @@ Database::~Database() {
   delete file;
   delete crypto;
 }
+
+bool Database::save() {
+  if (!file->open(QFile::WriteOnly)) {
+    m_error = FileNotWritable;
+    qWarning("Database::save : Unable to write on file (insufficient permissions?)");
+    return false;
+  }
+}
