@@ -1,10 +1,12 @@
 set(SOURCES
     core/Crypto.cpp
-    core/Database.cpp)
+    core/Database.cpp
+    core/Entry.cpp)
 
 set(HEADERS
     core/Crypto.h
-    core/Database.h)
+    core/Database.h
+    core/Entry.h)
 
 set(FORMS)
 
