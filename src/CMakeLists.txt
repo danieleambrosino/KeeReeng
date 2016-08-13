@@ -1,7 +1,7 @@
 set(SOURCES
     core/Crypto.cpp
     core/Database.cpp
-    core/Entry.cpp)
+    )
 
 set(HEADERS
     core/Crypto.h
