@@ -31,6 +31,7 @@ class Database {
  private:
   bool encrypt();
   bool decrypt();
+  bool parseBin();
 
   QList<Entry *> m_entries;
   QFile *file;
