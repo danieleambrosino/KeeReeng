@@ -24,6 +24,8 @@ class Database {
 
   QFile *file;
   Crypto *crypto;
+  QByteArray binary;
+  bool locked;
 };
 
 #endif //KEEREENG_DATABASE_H

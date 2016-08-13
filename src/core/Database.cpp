@@ -11,7 +11,8 @@
 
 Database::Database(const QString &filename, const QString &password) :
     file(new QFile(filename)),
-    crypto(new Crypto(QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Md5))) {}
+    crypto(new Crypto(QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Md5))),
+    locked(true) {}
 
 Database::~Database() {
   delete file;
