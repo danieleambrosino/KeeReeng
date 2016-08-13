@@ -1,4 +1,4 @@
-set(SOURCES)
+set(SOURCES core/Crypto.cpp core/Crypto.h)
 
 set(HEADERS)
 
