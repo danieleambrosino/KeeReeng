@@ -9,5 +9,6 @@ find_package(Qt5Widgets   5.7 REQUIRED)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+include_directories("${KeeReeng_SOURCE_DIR}/src")
 
 add_subdirectory(src)

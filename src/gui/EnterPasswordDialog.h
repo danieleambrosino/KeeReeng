@@ -15,6 +15,8 @@ class EnterPasswordDialog : public QDialog
     explicit EnterPasswordDialog(QWidget *parent = nullptr);
     ~EnterPasswordDialog();
 
+  QString password();
+
   private:
     Ui::EnterPasswordDialog *ui;
 };

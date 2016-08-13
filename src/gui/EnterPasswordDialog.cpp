@@ -1,5 +1,5 @@
-#include "enterpassworddialog.h"
-#include "ui_enterpassworddialog.h"
+#include "EnterPasswordDialog.h"
+#include "ui_EnterPasswordDialog.h"
 
 EnterPasswordDialog::EnterPasswordDialog(QWidget *parent) :
   QDialog(parent),
@@ -11,4 +11,8 @@ EnterPasswordDialog::EnterPasswordDialog(QWidget *parent) :
 EnterPasswordDialog::~EnterPasswordDialog()
 {
   delete ui;
+}
+
+QString EnterPasswordDialog::password() {
+  return ui->passwordLine->text();
 }
