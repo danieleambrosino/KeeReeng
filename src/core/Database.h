@@ -15,7 +15,9 @@ class Entry;
 class Database {
  public:
   enum Error {
-    NoError,
+    NoError = 0,
+    CorruptedDatabase,
+    WrongPassword,
     FileNotWritable,
     FileNotReadable,
   };

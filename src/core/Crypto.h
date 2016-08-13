@@ -10,7 +10,7 @@
 class Crypto {
  public:
   enum Error {
-    NoError,
+    NoError = 0,
     InvalidData,
     HashCheckFailed
   };
