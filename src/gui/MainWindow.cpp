@@ -43,8 +43,8 @@ void MainWindow::enableInterface(bool value) {
   ui->entryList->setEnabled(value);
 }
 
-void MainWindow::on_entryList_itemDoubleClicked(QTreeWidgetItem *item, int column)
-{
+void MainWindow::on_entryList_itemDoubleClicked(QTreeWidgetItem *item,
+                                                int column) {
   EntryListItem *entryItem = static_cast<EntryListItem *>(item);
   EntryDialog dlg(entryItem, this);
   if (dlg.exec() == dlg.Rejected)
@@ -55,4 +55,8 @@ void MainWindow::on_entryList_itemDoubleClicked(QTreeWidgetItem *item, int colum
   entryItem->entryData->password = dlg.password();
 
   ui->entryList->updateList();
+}
+
+void MainWindow::on_actionSave_triggered() {
+  ui->entryList->db->save();
 }

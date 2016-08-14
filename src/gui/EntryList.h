@@ -25,12 +25,13 @@ class EntryList : public QTreeWidget {
   void create(const QString &password);
   void addEntryItem(Entry *);
 
+  Database *db;
+
  public slots:
   void updateList();
 
  private:
   QList<EntryListItem *> m_entries; // FIXME
-  Database *db;
 };
 
 #endif // ENTRYLIST_H

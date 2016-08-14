@@ -30,7 +30,7 @@ class Database {
   bool save();
   bool open();
 
-  void addEntry(Entry *);
+  QList<Entry *> entries;
 
  private:
   bool encrypt();
@@ -39,7 +39,6 @@ class Database {
 
   QFile *file;
   Crypto *crypto;
-  QList<Entry *> m_entries;
   QByteArray binary;
   Error m_error;
   bool locked;

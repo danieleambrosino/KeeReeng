@@ -7,8 +7,10 @@
 #include <QCryptographicHash>
 #include <stdexcept>
 
-#define MD5_SIZE  16
-#define SHA1_SIZE 20
+enum ChecksumSize {
+  MD5_SIZE = 16,
+  SHA1_SIZE = 20
+};
 
 Crypto::Crypto(const QByteArray &key) :
     m_key(key),
@@ -23,7 +25,7 @@ QByteArray Crypto::encrypt(const QByteArray &bin) {
 
   tmp.prepend(QCryptographicHash::hash(bin, QCryptographicHash::Sha1));
 
-  int pos(0), size(bin.size());
+  int pos(0), size(tmp.size());
   char last(0);
 
   while (pos < size) {
@@ -45,7 +47,7 @@ QByteArray Crypto::decrypt(const QByteArray &bin) {
 
   QByteArray tmp = bin;
 
-  int pos(0), size(bin.size());
+  int pos(0), size(tmp.size());
   char last(0), current;
 
   while (pos < size) {

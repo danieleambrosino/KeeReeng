@@ -19,8 +19,8 @@ class MainWindow : public QMainWindow {
  private slots:
   void on_actionNewDatabase_triggered();
   void on_actionNewEntry_triggered();
-
   void on_entryList_itemDoubleClicked(QTreeWidgetItem *item, int column);
+  void on_actionSave_triggered();
 
   private:
   void enableInterface(bool);

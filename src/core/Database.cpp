@@ -74,22 +74,27 @@ bool Database::decrypt() {
 void Database::create(const QString &password) {
   file = new QFile("/tmp/__tmp.krdb");
   crypto = new Crypto(QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Md5));
+  locked = false;
 }
 
 bool Database::save() {
   if (not file->open(QFile::WriteOnly)) {
     m_error = FileNotWritable;
-    qWarning("Database::save : Unable to write on file (unsufficient permissions?)");
+    qWarning("Database::save : Unable to write on file (insufficient permissions?)");
     return false;
   }
 
-  if (m_entries.isEmpty())
+  if (entries.isEmpty())
     qWarning("Database::save : Warning: empty database");
 
-  for (const auto &i : m_entries)
+  binary.clear();
+  locked = false;
+
+  for (const auto &i : entries)
     binary.append(ITEM_START + i->title + ITEM_END +
                   ITEM_START + i->username + ITEM_END +
                   ITEM_START + i->password + ITEM_END);
+
 
   if (not encrypt()) {
     qWarning("Database::save : Encryption failed!");
@@ -158,7 +163,7 @@ bool Database::parseBin() {
         currentString = &password;
         break;
       case p:
-        m_entries.append(new Entry(title, username, password));
+        entries.append(new Entry(title, username, password));
         title.clear();
         username.clear();
         password.clear();
@@ -169,8 +174,4 @@ bool Database::parseBin() {
   }
 
   return true;
-}
-
-void Database::addEntry(Entry *item) {
-  m_entries.append(new Entry(item));
 }

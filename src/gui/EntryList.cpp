@@ -23,11 +23,10 @@ EntryList::EntryList(QWidget *parent) :
     db(new Database) {}
 
 void EntryList::addEntryItem(Entry *entry) {
-  db->addEntry(entry);
-
+  db->entries.append(entry);
   EntryListItem *item = new EntryListItem(entry);
-  m_entries.append(item);
 
+  m_entries.append(item);
   updateList();
 }
 
