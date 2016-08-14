@@ -32,6 +32,8 @@ class MainWindow : public QMainWindow {
   void handleError(int);
 
   Ui::MainWindow *ui;
+  bool saved;
+  bool neverSaved;
 };
 
 #endif // MAINWINDOW_H

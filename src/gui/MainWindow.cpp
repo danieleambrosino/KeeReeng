@@ -9,10 +9,12 @@
 
 #include "EnterPasswordDialog.h"
 #include "EntryDialog.h"
+#include "ExitWithoutSavingDialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow) {
+    ui(new Ui::MainWindow),
+    neverSaved(true) {
   ui->setupUi(this);
 }
 
@@ -26,6 +28,7 @@ void MainWindow::on_actionNewDatabase_triggered() {
 
   ui->entryList->create(dlg.password());
   enableInterface(true);
+  neverSaved = true;
 }
 
 void MainWindow::on_actionOpenDatabase_triggered() {
@@ -48,6 +51,7 @@ void MainWindow::on_actionOpenDatabase_triggered() {
     return;
   }
 
+  neverSaved = false;
   ui->entryList->updateList();
   enableInterface(true);
 }
@@ -58,7 +62,12 @@ void MainWindow::on_actionCloseDatabase_triggered() {
 }
 
 void MainWindow::on_actionSave_triggered() {
-  ui->entryList->db->save();
+  if (neverSaved)
+    on_actionSaveAs_triggered();
+  else if (not saved)
+    ui->entryList->db->save();
+
+  saved = true;
 }
 
 void MainWindow::on_actionSaveAs_triggered() {
@@ -72,9 +81,21 @@ void MainWindow::on_actionSaveAs_triggered() {
     handleError(ui->entryList->db->error());
     return;
   }
+
+  neverSaved = false;
+  return;
 }
 
-void MainWindow::on_actionQuit_triggered() { close(); }
+void MainWindow::on_actionQuit_triggered() {
+  if (not saved) {
+    ExitWithoutSavingDialog dlg(this);
+    if (dlg.exec() == dlg.Rejected)
+      return;
+    else
+      on_actionSaveAs_triggered();
+  }
+  close();
+}
 
 void MainWindow::on_actionNewEntry_triggered() {
   EntryDialog dlg(this);
@@ -83,6 +104,8 @@ void MainWindow::on_actionNewEntry_triggered() {
 
   Entry *entry = new Entry(dlg.title(), dlg.username(), dlg.password());
   ui->entryList->addEntryItem(entry);
+
+  saved = false;
 }
 
 void MainWindow::on_entryList_itemDoubleClicked(QTreeWidgetItem *item,
@@ -97,6 +120,7 @@ void MainWindow::on_entryList_itemDoubleClicked(QTreeWidgetItem *item,
   entryItem->entryData->password = dlg.password();
 
   ui->entryList->updateList();
+  saved = false;
 }
 
 void MainWindow::enableInterface(bool value) {
