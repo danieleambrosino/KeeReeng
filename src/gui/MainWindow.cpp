@@ -23,6 +23,8 @@ void MainWindow::on_actionNewDatabase_triggered()
 {
   EnterPasswordDialog dlg;
   dlg.exec();
+
+  ui->entryList->create(dlg.password());
 }
 
 void MainWindow::on_actionNewEntry_triggered()
@@ -32,4 +34,5 @@ void MainWindow::on_actionNewEntry_triggered()
     return;
 
   Entry *entry = new Entry(dlg.title(), dlg.username(), dlg.password());
+  ui->entryList->addEntryItem(entry);
 }

@@ -13,13 +13,19 @@ class Entry;
 class EntryListItem : public QTreeWidgetItem {
  public:
   EntryListItem(Entry *);
+
   Entry *entry;
 };
 
 class EntryList : public QTreeWidget {
  public:
   EntryList(QWidget *parent = nullptr);
+
+  void create(const QString &password);
   void addEntryItem(Entry *);
+
+ public slots:
+  void updateList();
 
  private:
   QList<EntryListItem *> m_entries; // FIXME

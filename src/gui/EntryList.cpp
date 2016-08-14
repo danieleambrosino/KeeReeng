@@ -14,11 +14,24 @@ EntryListItem::EntryListItem(Entry *entry) :
     entry(entry) {}
 
 EntryList::EntryList(QWidget *parent) :
-    QTreeWidget(parent) {}
+    QTreeWidget(parent),
+    db(new Database) {}
 
 void EntryList::addEntryItem(Entry *entry) {
   db->addEntry(entry);
+
   EntryListItem *item = new EntryListItem(entry);
   m_entries.append(item);
-  addTopLevelItem(item);
+
+  updateList();
+}
+
+void EntryList::updateList() {
+  clear();
+  for (const auto &i : m_entries)
+    addTopLevelItem(i);
+}
+
+void EntryList::create(const QString &password) {
+  db->create(password);
 }

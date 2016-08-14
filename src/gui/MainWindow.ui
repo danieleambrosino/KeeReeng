@@ -14,7 +14,10 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="EntryList" name="treeWidget">
+   <widget class="EntryList" name="entryList">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -27,7 +30,7 @@
      <number>3</number>
     </property>
     <attribute name="headerVisible">
-     <bool>false</bool>
+     <bool>true</bool>
     </attribute>
     <attribute name="headerCascadingSectionResizes">
      <bool>false</bool>
@@ -107,6 +110,9 @@
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuEntries">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="title">
      <string>&amp;Entries</string>
     </property>
@@ -186,6 +192,9 @@
    </property>
   </action>
   <action name="actionNewEntry">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>&amp;New entry</string>
    </property>

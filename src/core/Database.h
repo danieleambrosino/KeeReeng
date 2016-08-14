@@ -22,9 +22,11 @@ class Database {
     FileNotReadable,
   };
 
+  Database();
   Database(const QString &filename, const QString &password);
   ~Database();
 
+  void create(const QString &password);
   bool save();
   bool open();
 
@@ -35,10 +37,10 @@ class Database {
   bool decrypt();
   bool parseBin();
 
-  QList<Entry *> m_entries;
   QFile *file;
-  QByteArray binary;
   Crypto *crypto;
+  QList<Entry *> m_entries;
+  QByteArray binary;
   Error m_error;
   bool locked;
 };

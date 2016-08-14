@@ -28,6 +28,10 @@ enum ItemFlag {
   ITEM_END = 0x02
 };
 
+Database::Database() :
+    file(nullptr),
+    crypto(nullptr) {}
+
 Database::Database(const QString &filename, const QString &password) :
     file(new QFile(filename)),
     crypto(new Crypto(QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Md5))),
@@ -65,6 +69,11 @@ bool Database::decrypt() {
   handleCryptoError(crypto->error());
 
   return not locked;
+}
+
+void Database::create(const QString &password) {
+  file = new QFile("/tmp/__tmp.krdb");
+  crypto = new Crypto(QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Md5));
 }
 
 bool Database::save() {
