@@ -5,6 +5,7 @@
 #include "EntryList.h"
 
 #include "core/Entry.h"
+#include "core/Database.h"
 
 #define PASSWORD "**********"
 
@@ -16,6 +17,7 @@ EntryList::EntryList(QWidget *parent) :
     QTreeWidget(parent) {}
 
 void EntryList::addEntryItem(Entry *entry) {
+  db->addEntry(entry);
   EntryListItem *item = new EntryListItem(entry);
   m_entries.append(item);
   addTopLevelItem(item);
