@@ -14,7 +14,8 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    neverSaved(true) {
+    neverSaved(false),
+    saved(true) {
   ui->setupUi(this);
 }
 
@@ -23,6 +24,9 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::on_actionNewDatabase_triggered() {
+  if (not saved)
+    on_actionCloseDatabase_triggered();
+
   EnterPasswordDialog dlg;
   dlg.exec();
 
@@ -32,6 +36,9 @@ void MainWindow::on_actionNewDatabase_triggered() {
 }
 
 void MainWindow::on_actionOpenDatabase_triggered() {
+  if (not saved)
+    on_actionCloseDatabase_triggered();
+
   QFileDialog openDlg(this, "Open database", "/home", "KeeReeng database (*.krdb)");
   openDlg.setAcceptMode(openDlg.AcceptOpen);
   if (openDlg.exec() == openDlg.Rejected)
@@ -57,6 +64,9 @@ void MainWindow::on_actionOpenDatabase_triggered() {
 }
 
 void MainWindow::on_actionCloseDatabase_triggered() {
+  if (not saved)
+    on_actionSave_triggered();
+
   ui->entryList->clear();
   enableInterface(false);
 }
@@ -92,7 +102,7 @@ void MainWindow::on_actionQuit_triggered() {
     if (dlg.exec() == dlg.Rejected)
       return;
     else
-      on_actionSaveAs_triggered();
+      on_actionSave_triggered();
   }
   close();
 }
