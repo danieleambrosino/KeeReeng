@@ -53,4 +53,6 @@ void MainWindow::on_entryList_itemDoubleClicked(QTreeWidgetItem *item, int colum
   entryItem->entryData->title = dlg.title();
   entryItem->entryData->username = dlg.username();
   entryItem->entryData->password = dlg.password();
+
+  ui->entryList->updateList();
 }

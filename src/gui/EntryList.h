@@ -13,6 +13,7 @@ class Entry;
 class EntryListItem : public QTreeWidgetItem {
  public:
   EntryListItem(Entry *);
+  void update();
 
   Entry *entryData;
 };

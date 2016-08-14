@@ -13,6 +13,11 @@ EntryListItem::EntryListItem(Entry *entry) :
     QTreeWidgetItem(QStringList() << entry->title << entry->username << PASSWORD),
     entryData(entry) {}
 
+void EntryListItem::update() {
+  setText(0, entryData->title);
+  setText(1, entryData->username);
+}
+
 EntryList::EntryList(QWidget *parent) :
     QTreeWidget(parent),
     db(new Database) {}
@@ -27,9 +32,10 @@ void EntryList::addEntryItem(Entry *entry) {
 }
 
 void EntryList::updateList() {
-  clear();
-  for (const auto &i : m_entries)
+  for (const auto &i : m_entries) {
     addTopLevelItem(i);
+    i->update();
+  }
 }
 
 void EntryList::create(const QString &password) {
