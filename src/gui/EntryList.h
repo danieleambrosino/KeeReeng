@@ -22,7 +22,7 @@ class EntryList : public QTreeWidget {
  public:
   EntryList(QWidget *parent = nullptr);
 
-  void create(const QString &password);
+  void create(const QString &password, const QString &filename = "/tmp/__tmp.krdb");
   void addEntryItem(Entry *);
 
   Database *db;

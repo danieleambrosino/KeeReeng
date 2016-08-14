@@ -71,8 +71,8 @@ bool Database::decrypt() {
   return not locked;
 }
 
-void Database::create(const QString &password) {
-  file = new QFile("/tmp/__tmp.krdb");
+void Database::create(const QString &password, const QString &filename) {
+  file = new QFile(filename);
   crypto = new Crypto(QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Md5));
   locked = false;
 }
@@ -105,6 +105,11 @@ bool Database::save() {
   file->close();
   m_error = NoError;
   return true;
+}
+
+bool Database::saveAs(const QString &filename) {
+  file->setFileName(filename);
+  return save();
 }
 
 bool Database::open() {

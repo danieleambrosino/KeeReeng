@@ -26,9 +26,12 @@ class Database {
   Database(const QString &filename, const QString &password);
   ~Database();
 
-  void create(const QString &password);
+  void create(const QString &password, const QString &filename);
   bool save();
+  bool saveAs(const QString &filename);
   bool open();
+
+  Error error() { return m_error; }
 
   QList<Entry *> entries;
 

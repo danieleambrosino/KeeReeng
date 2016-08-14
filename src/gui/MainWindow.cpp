@@ -1,6 +1,9 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
+#include <QFileDialog>
+#include <QMessageBox>
+
 #include "core/Database.h"
 #include "core/Entry.h"
 
@@ -25,6 +28,54 @@ void MainWindow::on_actionNewDatabase_triggered() {
   enableInterface(true);
 }
 
+void MainWindow::on_actionOpenDatabase_triggered() {
+  QFileDialog openDlg(this, "Open database", "/home", "KeeReeng database (*.krdb)");
+  openDlg.setAcceptMode(openDlg.AcceptOpen);
+  if (openDlg.exec() == openDlg.Rejected)
+    return;
+
+  QString filename = openDlg.selectedFiles().first();
+
+  EnterPasswordDialog pwdDlg(this);
+  pwdDlg.setWindowTitle("Enter password");
+  if (pwdDlg.exec() == pwdDlg.Rejected)
+    return;
+
+  QString password = pwdDlg.password();
+  ui->entryList->db->create(password, filename);
+  if (not ui->entryList->db->open()) {
+    handleError(ui->entryList->db->error());
+    return;
+  }
+
+  ui->entryList->updateList();
+  enableInterface(true);
+}
+
+void MainWindow::on_actionCloseDatabase_triggered() {
+  ui->entryList->clear();
+  enableInterface(false);
+}
+
+void MainWindow::on_actionSave_triggered() {
+  ui->entryList->db->save();
+}
+
+void MainWindow::on_actionSaveAs_triggered() {
+  QFileDialog saveDlg(this, "Save as...", "/home");
+  saveDlg.setAcceptMode(saveDlg.AcceptSave);
+  if (saveDlg.exec() == saveDlg.Rejected)
+    return;
+
+  QString filename = saveDlg.selectedFiles().first();
+  if (not ui->entryList->db->saveAs(filename)) {
+    handleError(ui->entryList->db->error());
+    return;
+  }
+}
+
+void MainWindow::on_actionQuit_triggered() { close(); }
+
 void MainWindow::on_actionNewEntry_triggered() {
   EntryDialog dlg(this);
   if (dlg.exec() == dlg.Rejected)
@@ -32,15 +83,6 @@ void MainWindow::on_actionNewEntry_triggered() {
 
   Entry *entry = new Entry(dlg.title(), dlg.username(), dlg.password());
   ui->entryList->addEntryItem(entry);
-}
-
-void MainWindow::enableInterface(bool value) {
-  ui->actionCloseDatabase->setEnabled(value);
-  ui->actionChangeMasterPassword->setEnabled(value);
-  ui->actionSave->setEnabled(value);
-  ui->actionSaveAs->setEnabled(value);
-  ui->menuEntries->setEnabled(value);
-  ui->entryList->setEnabled(value);
 }
 
 void MainWindow::on_entryList_itemDoubleClicked(QTreeWidgetItem *item,
@@ -57,6 +99,31 @@ void MainWindow::on_entryList_itemDoubleClicked(QTreeWidgetItem *item,
   ui->entryList->updateList();
 }
 
-void MainWindow::on_actionSave_triggered() {
-  ui->entryList->db->save();
+void MainWindow::enableInterface(bool value) {
+  ui->actionCloseDatabase->setEnabled(value);
+  ui->actionChangeMasterPassword->setEnabled(value);
+  ui->actionSave->setEnabled(value);
+  ui->actionSaveAs->setEnabled(value);
+  ui->menuEntries->setEnabled(value);
+  ui->entryList->setEnabled(value);
+}
+
+void MainWindow::handleError(int error) {
+  switch (error) {
+    case Database::NoError:
+      break;
+    case Database::CorruptedDatabase:
+      QMessageBox::critical(this, "Corrupted error", "Database is corrupted!");
+      break;
+    case Database::WrongPassword:
+      QMessageBox::warning(this, "Wrong password", "Wrong password!");
+      break;
+    case Database::FileNotWritable:
+      QMessageBox::critical(this, "File not writable", "Unable to write file!");
+      break;
+    case Database::FileNotReadable:
+      QMessageBox::critical(this, "File not readable", "Unable to read file!");
+      break;
+    default:break;
+  }
 }

@@ -21,9 +21,15 @@ class MainWindow : public QMainWindow {
   void on_actionNewEntry_triggered();
   void on_entryList_itemDoubleClicked(QTreeWidgetItem *item, int column);
   void on_actionSave_triggered();
+  void on_actionOpenDatabase_triggered();
+  void on_actionQuit_triggered();
+  void on_actionCloseDatabase_triggered();
+
+  void on_actionSaveAs_triggered();
 
   private:
   void enableInterface(bool);
+  void handleError(int);
 
   Ui::MainWindow *ui;
 };

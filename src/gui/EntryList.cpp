@@ -37,6 +37,6 @@ void EntryList::updateList() {
   }
 }
 
-void EntryList::create(const QString &password) {
-  db->create(password);
+void EntryList::create(const QString &password, const QString &filename) {
+  db->create(password, filename);
 }
