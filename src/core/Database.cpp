@@ -10,9 +10,6 @@
 #include "Crypto.h"
 #include "Entry.h"
 
-#define ITEM_START  0x01
-#define ITEM_END    0x02
-
 #define handleCryptoError(error) \
 switch (error) { \
   case Crypto::NoError: \
@@ -25,6 +22,11 @@ switch (error) { \
     m_error = WrongPassword; \
     break; \
 }
+
+enum ItemFlag {
+  ITEM_START = 0x01,
+  ITEM_END = 0x02
+};
 
 Database::Database(const QString &filename, const QString &password) :
     file(new QFile(filename)),
