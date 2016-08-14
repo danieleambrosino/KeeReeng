@@ -7,6 +7,8 @@ namespace Ui {
 class MainWindow;
 }
 
+class QTreeWidgetItem;
+
 class MainWindow : public QMainWindow {
  Q_OBJECT
 
@@ -18,7 +20,11 @@ class MainWindow : public QMainWindow {
   void on_actionNewDatabase_triggered();
   void on_actionNewEntry_triggered();
 
- private:
+  void on_entryList_itemDoubleClicked(QTreeWidgetItem *item, int column);
+
+  private:
+  void enableInterface(bool);
+
   Ui::MainWindow *ui;
 };
 

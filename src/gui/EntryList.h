@@ -14,7 +14,7 @@ class EntryListItem : public QTreeWidgetItem {
  public:
   EntryListItem(Entry *);
 
-  Entry *entry;
+  Entry *entryData;
 };
 
 class EntryList : public QTreeWidget {

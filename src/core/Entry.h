@@ -7,28 +7,18 @@
 
 #include <QString>
 
-class Entry {
- public:
+struct Entry {
   Entry(const QString &m_title,
         const QString &m_username,
         const QString &m_password) :
-      m_title(m_title), m_username(m_username), m_password(m_password) {}
+      title(m_title), username(m_username), password(m_password) {}
 
   explicit Entry(const Entry *item) :
-      m_title(item->title()), m_username(item->username()), m_password(item->password()) {}
+      title(item->title), username(item->username), password(item->password) {}
 
-  const QString &title() const { return m_title; }
-  const QString &username() const { return m_username; }
-  const QString &password() const { return m_password; }
-
-  void setTitle(const QString &title) { Entry::m_title = title; }
-  void setUsername(const QString &username) { Entry::m_username = username; }
-  void setPassword(const QString &password) { Entry::m_password = password; }
-
- private:
-  QString m_title;
-  QString m_username;
-  QString m_password;
+  QString title;
+  QString username;
+  QString password;
 };
 
 #endif //KEEREENG_ENTRY_H

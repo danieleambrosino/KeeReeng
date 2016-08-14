@@ -4,7 +4,6 @@
 
 #include "Crypto.h"
 
-#include <QString>
 #include <QCryptographicHash>
 #include <stdexcept>
 

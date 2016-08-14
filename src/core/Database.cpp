@@ -87,9 +87,9 @@ bool Database::save() {
     qWarning("Database::save : Warning: empty database");
 
   for (const auto &i : m_entries)
-    binary.append(ITEM_START + i->title() + ITEM_END +
-                  ITEM_START + i->username() + ITEM_END +
-                  ITEM_START + i->password() + ITEM_END);
+    binary.append(ITEM_START + i->title + ITEM_END +
+                  ITEM_START + i->username + ITEM_END +
+                  ITEM_START + i->password + ITEM_END);
 
   if (not encrypt()) {
     qWarning("Database::save : Encryption failed!");

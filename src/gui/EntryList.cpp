@@ -10,8 +10,8 @@
 #define PASSWORD "**********"
 
 EntryListItem::EntryListItem(Entry *entry) :
-    QTreeWidgetItem(QStringList() << entry->title() << entry->username() << PASSWORD),
-    entry(entry) {}
+    QTreeWidgetItem(QStringList() << entry->title << entry->username << PASSWORD),
+    entryData(entry) {}
 
 EntryList::EntryList(QWidget *parent) :
     QTreeWidget(parent),
