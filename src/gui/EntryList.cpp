@@ -1,12 +1,16 @@
+//
+// Created by daniele on 14/08/16
+//
+
 #include "EntryList.h"
 
-#include "../core/Entry.h"
+#include "core/Entry.h"
 
 #define PASSWORD "**********"
 
 EntryListItem::EntryListItem(Entry *entry) :
-    entry(entry),
-    QTreeWidgetItem(QStringList() << entry->title() << entry->username() << PASSWORD) {}
+    QTreeWidgetItem(QStringList() << entry->title() << entry->username() << PASSWORD),
+    entry(entry) {}
 
 EntryList::EntryList(QWidget *parent) :
     QTreeWidget(parent) {}
