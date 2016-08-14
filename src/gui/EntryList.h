@@ -6,13 +6,15 @@
 class Entry;
 
 class EntryListItem : public QTreeWidgetItem {
-  EntryListItem(QTreeWidget *);
+ public:
+  EntryListItem(Entry *);
   Entry *entry;
 };
 
 class EntryList : public QTreeWidget {
  public:
   EntryList(QWidget *parent = nullptr);
+  void addEntryItem(Entry *);
 
  private:
   QList<EntryListItem *> m_entries;

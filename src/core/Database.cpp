@@ -159,3 +159,7 @@ bool Database::parseBin() {
 
   return true;
 }
+
+void Database::addEntry(Entry *item) {
+  m_entries.append(new Entry(item));
+}

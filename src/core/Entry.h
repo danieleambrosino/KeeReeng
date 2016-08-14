@@ -14,6 +14,9 @@ class Entry {
         const QString &m_password) :
       m_title(m_title), m_username(m_username), m_password(m_password) {}
 
+  explicit Entry(const Entry *item) :
+      m_title(item->title()), m_username(item->username()), m_password(item->password()) {}
+
   const QString &title() const { return m_title; }
   const QString &username() const { return m_username; }
   const QString &password() const { return m_password; }

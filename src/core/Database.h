@@ -28,6 +28,8 @@ class Database {
   bool save();
   bool open();
 
+  void addEntry(Entry *);
+
  private:
   bool encrypt();
   bool decrypt();
