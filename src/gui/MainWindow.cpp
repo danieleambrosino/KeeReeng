@@ -99,10 +99,13 @@ void MainWindow::on_actionSaveAs_triggered() {
 void MainWindow::on_actionQuit_triggered() {
   if (not saved) {
     ExitWithoutSavingDialog dlg(this);
-    if (dlg.exec() == dlg.Rejected)
+    int result = dlg.exec();
+    if (result == dlg.Rejected)
       return;
-    else
+    else if (result == dlg.Accepted)
       on_actionSave_triggered();
+    else if (result == dlg.CloseNoSave)
+      close();
   }
   close();
 }
