@@ -5,7 +5,6 @@
 #include "EntryList.h"
 
 #include "core/Entry.h"
-#include "core/Database.h"
 
 #define PASSWORD "**********"
 
@@ -18,6 +17,35 @@ void EntryListItem::update() {
   setText(1, entryData->username);
 }
 
+EntryList::EntryList(QWidget *parent) :
+  QTreeWidget(parent),
+  Database() {}
+
+void EntryList::addItem(Entry *entry) {
+  entries.append(entry);
+  updateView();
+}
+
+void EntryList::updateView() {
+  items.clear();
+  QTreeWidget::clear();
+
+  for (const auto &i : entries)
+    items.push_back(new EntryListItem(i));
+
+  for (const auto &i : items) {
+    i->update();
+    addTopLevelItem(i);
+  }
+}
+
+void EntryList::clear() {
+  entries.clear();
+  items.clear();
+  QTreeWidget::clear();
+}
+
+/*
 EntryList::EntryList(QWidget *parent) :
     QTreeWidget(parent),
     db(new Database) {}
@@ -44,3 +72,4 @@ void EntryList::updateList() {
 void EntryList::create(const QString &password, const QString &filename) {
   db->create(password, filename);
 }
+*/

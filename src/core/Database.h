@@ -26,22 +26,21 @@ class Database {
   Database(const QString &filename, const QString &password);
   ~Database();
 
-  void create(const QString &password, const QString &filename);
+  void create(const QString &password, const QString &filename = "/tmp/__tmp.krdb");
   bool save();
   bool saveAs(const QString &filename);
   bool open();
 
   Error error() { return m_error; }
-
   QList<Entry *> entries;
 
- private:
+ protected:
   bool encrypt();
   bool decrypt();
   bool parseBin();
 
-  QFile *file;
   Crypto *crypto;
+  QFile *file;
   QByteArray binary;
   Error m_error;
   bool locked;

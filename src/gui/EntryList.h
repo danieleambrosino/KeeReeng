@@ -7,7 +7,8 @@
 
 #include <QTreeWidget>
 
-class Database;
+#include "core/Database.h"
+
 class Entry;
 
 class EntryListItem : public QTreeWidgetItem {
@@ -18,7 +19,23 @@ class EntryListItem : public QTreeWidgetItem {
   Entry *entryData;
 };
 
-class EntryList : public QTreeWidget {
+class EntryList : public QTreeWidget, public Database {
+  Q_OBJECT
+
+ public:
+  EntryList(QWidget *parent = nullptr);
+  void addItem(Entry *);
+  void updateView();
+  void clear();
+  using Database::create;
+
+ private:
+  QList<EntryListItem *> items;
+};
+
+
+
+/*class EntryList : public QTreeWidget {
  public:
   EntryList(QWidget *parent = nullptr);
 
@@ -32,6 +49,6 @@ class EntryList : public QTreeWidget {
 
  private:
   QList<EntryListItem *> m_entries; // FIXME
-};
+};*/
 
 #endif // ENTRYLIST_H

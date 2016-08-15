@@ -4,7 +4,6 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
-#include "core/Database.h"
 #include "core/Entry.h"
 
 #include "EnterPasswordDialog.h"
@@ -52,14 +51,14 @@ void MainWindow::on_actionOpenDatabase_triggered() {
     return;
 
   QString password = pwdDlg.password();
-  ui->entryList->db->create(password, filename);
-  if (not ui->entryList->db->open()) {
-    handleError(ui->entryList->db->error());
+  ui->entryList->create(password, filename);
+  if (not ui->entryList->open()) {
+    handleError(ui->entryList->error());
     return;
   }
 
   neverSaved = false;
-  ui->entryList->updateList();
+  ui->entryList->updateView();
   enableInterface(true);
 }
 
@@ -75,7 +74,7 @@ void MainWindow::on_actionSave_triggered() {
   if (neverSaved)
     on_actionSaveAs_triggered();
   else if (not saved)
-    ui->entryList->db->save();
+    ui->entryList->save();
 
   saved = true;
 }
@@ -87,8 +86,8 @@ void MainWindow::on_actionSaveAs_triggered() {
     return;
 
   QString filename = saveDlg.selectedFiles().first();
-  if (not ui->entryList->db->saveAs(filename)) {
-    handleError(ui->entryList->db->error());
+  if (not ui->entryList->saveAs(filename)) {
+    handleError(ui->entryList->error());
     return;
   }
 
@@ -116,7 +115,7 @@ void MainWindow::on_actionNewEntry_triggered() {
     return;
 
   Entry *entry = new Entry(dlg.title(), dlg.username(), dlg.password());
-  ui->entryList->addEntryItem(entry);
+  ui->entryList->addItem(entry);
 
   saved = false;
 }
@@ -132,7 +131,7 @@ void MainWindow::on_entryList_itemDoubleClicked(QTreeWidgetItem *item,
   entryItem->entryData->username = dlg.username();
   entryItem->entryData->password = dlg.password();
 
-  ui->entryList->updateList();
+  ui->entryList->updateView();
   saved = false;
 }
 
