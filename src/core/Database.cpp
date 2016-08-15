@@ -30,7 +30,8 @@ enum ItemFlag {
 
 Database::Database() :
     file(nullptr),
-    crypto(nullptr) {}
+    crypto(nullptr),
+    locked(true) {}
 
 Database::Database(const QString &filename, const QString &password) :
     file(new QFile(filename)),
@@ -74,7 +75,7 @@ bool Database::decrypt() {
 void Database::create(const QString &password, const QString &filename) {
   file = new QFile(filename);
   crypto = new Crypto(QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Md5));
-  locked = false;
+  locked = true;
 }
 
 bool Database::save() {

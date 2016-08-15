@@ -31,9 +31,13 @@ void EntryList::addEntryItem(Entry *entry) {
 }
 
 void EntryList::updateList() {
+  m_entries.clear();
+  for (const auto &i : db->entries)
+    m_entries.push_back(new EntryListItem(i));
+
   for (const auto &i : m_entries) {
-    addTopLevelItem(i);
     i->update();
+    addTopLevelItem(i);
   }
 }
 

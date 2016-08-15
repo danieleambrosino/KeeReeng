@@ -28,7 +28,8 @@ void MainWindow::on_actionNewDatabase_triggered() {
     on_actionCloseDatabase_triggered();
 
   EnterPasswordDialog dlg;
-  dlg.exec();
+  if (dlg.exec() == dlg.Rejected)
+    return;
 
   ui->entryList->create(dlg.password());
   enableInterface(true);
@@ -47,7 +48,6 @@ void MainWindow::on_actionOpenDatabase_triggered() {
   QString filename = openDlg.selectedFiles().first();
 
   EnterPasswordDialog pwdDlg(this);
-  pwdDlg.setWindowTitle("Enter password");
   if (pwdDlg.exec() == pwdDlg.Rejected)
     return;
 
@@ -81,7 +81,7 @@ void MainWindow::on_actionSave_triggered() {
 }
 
 void MainWindow::on_actionSaveAs_triggered() {
-  QFileDialog saveDlg(this, "Save as...", "/home");
+  QFileDialog saveDlg(this, "Save as...", "/home", "KeeReeng database (*.krdb)");
   saveDlg.setAcceptMode(saveDlg.AcceptSave);
   if (saveDlg.exec() == saveDlg.Rejected)
     return;
