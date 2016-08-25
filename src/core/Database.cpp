@@ -181,3 +181,15 @@ bool Database::parseBin() {
 
   return true;
 }
+
+bool Database::checkPassword(const QString &password) {
+  return QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Md5) == crypto->key();
+}
+
+bool Database::changePassword(const QString &old, const QString &newP) {
+  if (!checkPassword(old))
+    return false;
+
+  crypto->setKey(QCryptographicHash::hash(newP.toUtf8(), QCryptographicHash::Md5));
+  return true;
+}

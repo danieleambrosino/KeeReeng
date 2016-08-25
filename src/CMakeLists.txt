@@ -5,7 +5,8 @@ set(SOURCES
     gui/EnterPasswordDialog.cpp
     gui/EntryList.cpp
     gui/EntryDialog.cpp
-    gui/ExitWithoutSavingDialog.cpp)
+    gui/ExitWithoutSavingDialog.cpp
+    gui/ChangePasswordDialog.cpp)
 
 set(HEADERS
     core/Crypto.h
@@ -15,7 +16,8 @@ set(HEADERS
     gui/EnterPasswordDialog.h
     gui/EntryList.h
     gui/EntryDialog.h
-    gui/ExitWithoutSavingDialog.h)
+    gui/ExitWithoutSavingDialog.h
+    gui/ChangePasswordDialog.h)
 
 add_library(core STATIC ${SOURCES} ${HEADERS})
 target_link_libraries(core

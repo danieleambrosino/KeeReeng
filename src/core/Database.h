@@ -31,6 +31,8 @@ class Database {
   bool saveAs(const QString &filename);
   bool open();
 
+  bool changePassword(const QString &old, const QString &newP);
+
   Error error() { return m_error; }
   QList<Entry *> entries;
 
@@ -38,6 +40,7 @@ class Database {
   bool encrypt();
   bool decrypt();
   bool parseBin();
+  bool checkPassword(const QString &password);
 
   Crypto *crypto;
   QFile *file;

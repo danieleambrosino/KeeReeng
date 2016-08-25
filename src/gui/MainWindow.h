@@ -27,6 +27,8 @@ class MainWindow : public QMainWindow {
 
   void on_actionSaveAs_triggered();
 
+  void on_actionChangeMasterPassword_triggered();
+
   private:
   void enableInterface(bool);
   void handleError(int);

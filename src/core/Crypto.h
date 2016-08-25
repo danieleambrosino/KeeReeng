@@ -21,6 +21,8 @@ class Crypto {
   QByteArray decrypt(const QByteArray &bin);
 
   const Error &error() { return m_error; }
+  const QByteArray &key() { return m_key; }
+  void setKey(const QByteArray &m_key) { Crypto::m_key = m_key; }
 
  private:
   QByteArray m_key;

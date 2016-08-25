@@ -9,6 +9,7 @@
 #include "EnterPasswordDialog.h"
 #include "EntryDialog.h"
 #include "ExitWithoutSavingDialog.h"
+#include "ChangePasswordDialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -68,6 +69,30 @@ void MainWindow::on_actionCloseDatabase_triggered() {
 
   ui->entryList->clear();
   enableInterface(false);
+}
+
+void MainWindow::on_actionChangeMasterPassword_triggered() {
+  ChangePasswordDialog dlg;
+
+  while (dlg.exec() != dlg.Rejected) {
+    if (!ui->entryList->changePassword(dlg.currentPassword(),
+                                       dlg.newPassword())) {
+      QMessageBox::warning(this,
+                           "Incorrect password",
+                           "Wrong current password");
+      continue;
+    }
+
+    if (dlg.passwordMismatch())
+      QMessageBox::warning(this,
+                           "Password mismatch",
+                           "Password verification failed");
+
+    else {
+      saved = false;
+      return;
+    }
+  }
 }
 
 void MainWindow::on_actionSave_triggered() {
