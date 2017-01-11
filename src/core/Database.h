@@ -18,7 +18,7 @@ class Database {
     NoError = 0,
     CorruptedDatabase,
     WrongPassword,
-    FileNotWritable,
+    FileNotWriteable,
     FileNotReadable,
   };
 

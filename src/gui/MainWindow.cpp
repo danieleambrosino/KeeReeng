@@ -190,7 +190,7 @@ void MainWindow::handleError(int error) {
     case Database::WrongPassword:
       QMessageBox::warning(this, "Wrong password", "Wrong password!");
       break;
-    case Database::FileNotWritable:
+    case Database::FileNotWriteable:
       QMessageBox::critical(this, "File not writable", "Unable to write file!");
       break;
     case Database::FileNotReadable:

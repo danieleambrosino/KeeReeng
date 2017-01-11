@@ -80,7 +80,7 @@ void Database::create(const QString &password, const QString &filename) {
 
 bool Database::save() {
   if (not file->open(QFile::WriteOnly)) {
-    m_error = FileNotWritable;
+    m_error = FileNotWriteable;
     qWarning("Database::save : Unable to write on file (insufficient permissions?)");
     return false;
   }
