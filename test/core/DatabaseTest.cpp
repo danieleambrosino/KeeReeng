@@ -4,6 +4,7 @@
 
 #include <QTest>
 #include <QObject>
+#include <core/Database.h>
 
 class DatabaseTest : public QObject {
   Q_OBJECT
@@ -13,7 +14,11 @@ class DatabaseTest : public QObject {
 };
 
 void DatabaseTest::saveAndOpenDB() {
-
+  Database database;
+  database.create("password");
+  Q_ASSERT(database.save() == true);
+  Q_ASSERT(database.error() == database.NoError);
 }
 
+QTEST_MAIN(DatabaseTest)
 #include "DatabaseTest.moc"
