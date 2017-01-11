@@ -142,7 +142,15 @@ void MainWindow::on_actionNewEntry_triggered() {
   Entry *entry = new Entry(dlg.title(), dlg.username(), dlg.password());
   ui->entryList->addItem(entry);
 
-  saved = false;
+  /*
+   * Using Observer design pattern:
+   * everytime an entry (the subject) is created/modified,
+   * it notifies the database (the observer) with the "save" method;
+   * the database is updated automatically
+   * and the db file is serialized and encrypted constantly.
+   */
+
+  ui->entryList->save();
 }
 
 void MainWindow::on_entryList_itemDoubleClicked(QTreeWidgetItem *item,
