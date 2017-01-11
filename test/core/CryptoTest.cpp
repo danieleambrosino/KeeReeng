@@ -3,7 +3,7 @@
 //
 
 #include <QTest>
-#include <QtCore/QCryptographicHash>
+#include <QCryptographicHash>
 
 #include "core/Crypto.h"
 
@@ -13,7 +13,6 @@ class CryptoTest : public QObject {
  private slots:
   void constructAndValidateKey();
   void encryptionDecryptionTest();
-
 };
 
 void CryptoTest::constructAndValidateKey() {
@@ -25,7 +24,7 @@ void CryptoTest::constructAndValidateKey() {
 
   key = QCryptographicHash::hash(key, QCryptographicHash::Md5);
   Crypto test(key);
-  Q_DECL_NOTHROW(test);
+  Q_ASSERT(test.error() == test.NoError);
 }
 
 void CryptoTest::encryptionDecryptionTest() {
@@ -37,7 +36,7 @@ void CryptoTest::encryptionDecryptionTest() {
   Q_DECL_NOTHROW(test.decrypt(result));
   QByteArray check = test.decrypt(result);
   Q_ASSERT(source == check);
-  Q_ASSERT(test.error() == 0);
+  Q_ASSERT(test.error() == test.NoError);
 }
 
 QTEST_MAIN(CryptoTest)

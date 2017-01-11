@@ -1,6 +1,6 @@
 set(TEST_SOURCES
     core/CryptoTest.cpp
-        )
+        core/DatabaseTest.cpp)
 
 find_package(Qt5Test 5.7 REQUIRED)
 

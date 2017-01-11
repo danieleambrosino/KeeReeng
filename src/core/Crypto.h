@@ -12,7 +12,8 @@ class Crypto {
   enum Error {
     NoError = 0,
     InvalidData,
-    HashCheckFailed
+    HashCheckFailed,
+    InvalidKey
   };
 
   explicit Crypto(const QByteArray &key);
