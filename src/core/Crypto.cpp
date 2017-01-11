@@ -15,7 +15,7 @@ enum ChecksumSize {
 Crypto::Crypto(const QByteArray &key) :
     m_key(key),
     m_error(NoError) {
-  if (m_key.size() > MD5_SIZE)
+  if (m_key.size() != MD5_SIZE)
     throw std::invalid_argument(
         "Crypto::Crypto : fatal error: key size (MD5_SIZE) must be 16 byte");
 }

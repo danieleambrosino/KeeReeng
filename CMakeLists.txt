@@ -12,3 +12,4 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 include_directories("${KeeReeng_SOURCE_DIR}/src")
 
 add_subdirectory(src)
+add_subdirectory(test)
