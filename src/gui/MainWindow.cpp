@@ -124,8 +124,9 @@ void MainWindow::on_actionSaveAs_triggered() {
       return;
 
     filename = saveDlg.selectedFiles().first();
-    if (not ui->entryList->saveAs(filename))
-      errorCode = handleError(ui->entryList->error());
+    ui->entryList->saveAs(filename);
+    errorCode = handleError(ui->entryList->error());
+
   } while (errorCode == Database::FileNotWriteable);
 
   neverSaved = not (errorCode == Database::NoError);
