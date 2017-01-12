@@ -123,6 +123,7 @@
      <string>&amp;Entries</string>
     </property>
     <addaction name="actionNewEntry"/>
+    <addaction name="actionClearEntries"/>
    </widget>
    <addaction name="menuDatabase"/>
    <addaction name="menuEntries"/>
@@ -206,6 +207,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="actionClearEntries">
+   <property name="text">
+    <string>Clear entries</string>
    </property>
   </action>
  </widget>

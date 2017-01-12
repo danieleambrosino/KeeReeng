@@ -227,3 +227,10 @@ int MainWindow::handleError(int error) {
     default:return -1;
   }
 }
+
+void MainWindow::on_actionClearEntries_triggered() {
+  ui->entryList->entries.clear();
+  ui->entryList->updateView();
+
+  on_actionSave_triggered();
+}

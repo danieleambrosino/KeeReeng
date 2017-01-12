@@ -36,7 +36,9 @@ class MainWindow : public QMainWindow {
   void on_entryList_itemDoubleClicked(QTreeWidgetItem *item, int column);
   void showEntryContextMenu(const QPoint &pos);
 
-  private:
+  void on_actionClearEntries_triggered();
+
+private:
   void enableInterface(bool);
   int handleError(int);
 
