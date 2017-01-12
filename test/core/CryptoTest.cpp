@@ -13,30 +13,48 @@ class CryptoTest : public QObject {
  private slots:
   void constructAndValidateKey();
   void encryptionDecryptionTest();
+  void keyHashingTest();
 };
 
 void CryptoTest::constructAndValidateKey() {
   QByteArray key("prova");
-  QVERIFY_EXCEPTION_THROWN(Crypto test(key), std::invalid_argument);
+  Crypto *test;
+  QVERIFY_EXCEPTION_THROWN(test = new Crypto(key), std::invalid_argument);
 
   key = "supercalifragilistichespiralitoso";
-  QVERIFY_EXCEPTION_THROWN(Crypto test(key), std::invalid_argument);
+  QVERIFY_EXCEPTION_THROWN(test = new Crypto(key), std::invalid_argument);
 
   key = QCryptographicHash::hash(key, QCryptographicHash::Md5);
-  Crypto test(key);
-  Q_ASSERT(test.error() == test.NoError);
+  test = new Crypto(key);
+  Q_ASSERT(test->error() == test->NoError);
+  delete test;
 }
 
 void CryptoTest::encryptionDecryptionTest() {
   Crypto test(QCryptographicHash::hash("prontoprova", QCryptographicHash::Md5));
   QByteArray source("really secret message");
-  Q_DECL_NOTHROW(source);
 
-  QByteArray result = test.encrypt(source);
-  Q_DECL_NOTHROW(test.decrypt(result));
-  QByteArray check = test.decrypt(result);
+  QByteArray destination = test.encrypt(source);
+  Q_DECL_NOTHROW(test.decrypt(destination));
+  QByteArray check = test.decrypt(destination);
   Q_ASSERT(source == check);
   Q_ASSERT(test.error() == test.NoError);
+
+  destination = "let's corrupt the data";
+  test.decrypt(destination);
+  Q_ASSERT(test.error() == test.HashCheckFailed);
+
+  destination = "let's corrupt";
+  test.decrypt(destination);
+  Q_ASSERT(test.error() == test.InvalidData);
+}
+
+void CryptoTest::keyHashingTest() {
+  QByteArray key = QCryptographicHash::hash("password", QCryptographicHash::Md5);
+  Crypto *test;
+
+  Q_DECL_NOTHROW(test = new Crypto(key));
+  QVERIFY_EXCEPTION_THROWN(test->setKey("corruptedkey"),std::invalid_argument);
 }
 
 QTEST_MAIN(CryptoTest)

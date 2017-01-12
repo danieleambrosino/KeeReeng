@@ -16,7 +16,6 @@ Crypto::Crypto(const QByteArray &key) :
     m_key(key),
     m_error(NoError) {
   if (m_key.size() != MD5_SIZE) {
-    m_error = InvalidKey;
     throw std::invalid_argument(
         "Crypto::Crypto : fatal error: key size (MD5_SIZE) must be 16 byte");
   }
@@ -71,3 +70,12 @@ QByteArray Crypto::decrypt(const QByteArray &bin) {
   m_error = NoError;
   return tmp;
 }
+
+void Crypto::setKey(const QByteArray &key) {
+  if (key.size() != MD5_SIZE) {
+    throw std::invalid_argument(
+        "Crypto::setKey : invalid key! (key size must be 16 byte)");
+  }
+  Crypto::m_key = m_key;
+}
+

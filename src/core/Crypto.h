@@ -13,7 +13,6 @@ class Crypto {
     NoError = 0,
     InvalidData,
     HashCheckFailed,
-    InvalidKey
   };
 
   explicit Crypto(const QByteArray &key);
@@ -23,7 +22,7 @@ class Crypto {
 
   const Error &error() { return m_error; }
   const QByteArray &key() { return m_key; }
-  void setKey(const QByteArray &m_key) { Crypto::m_key = m_key; }
+  void setKey(const QByteArray &key);
 
  private:
   QByteArray m_key;
