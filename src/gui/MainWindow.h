@@ -29,6 +29,8 @@ class MainWindow : public QMainWindow {
 
   void on_actionChangeMasterPassword_triggered();
 
+  void showEntryContextMenu(const QPoint &pos);
+
   private:
   void enableInterface(bool);
   void handleError(int);

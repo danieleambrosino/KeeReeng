@@ -3,6 +3,7 @@
 
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QClipboard>
 
 #include "core/Entry.h"
 
@@ -17,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     neverSaved(false),
     saved(true) {
   ui->setupUi(this);
+  connect(ui->entryList, &EntryList::customContextMenuRequested, this, &MainWindow::showEntryContextMenu);
 }
 
 MainWindow::~MainWindow() {
@@ -170,6 +172,20 @@ void MainWindow::on_entryList_itemDoubleClicked(QTreeWidgetItem *item,
 
   ui->entryList->updateView();
   saved = false;
+}
+
+#include <QDebug>
+
+void MainWindow::showEntryContextMenu(const QPoint &pos) {
+  EntryList *list = ui->entryList;
+  EntryListItem *item = static_cast<EntryListItem *>(list->itemAt(pos));
+
+  qDebug() << pos << item->text(0) << item->text(1) << item->text(2) << "ovvero" << item->entryData->password;
+
+  QClipboard *clipboard = QApplication::clipboard();
+  clipboard->setText(item->entryData->password);
+
+  QMessageBox::information(this, "Copied!", "Password copied to clipboard!");
 }
 
 void MainWindow::enableInterface(bool value) {

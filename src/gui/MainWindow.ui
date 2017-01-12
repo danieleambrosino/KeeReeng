@@ -10,6 +10,9 @@
     <height>300</height>
    </rect>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::DefaultContextMenu</enum>
+  </property>
   <property name="windowTitle">
    <string>KeeReeng</string>
   </property>
@@ -25,6 +28,9 @@
       <width>441</width>
       <height>241</height>
      </rect>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::CustomContextMenu</enum>
     </property>
     <property name="columnCount">
      <number>3</number>
