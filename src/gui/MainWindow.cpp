@@ -26,8 +26,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::on_actionNewDatabase_triggered() {
-  if (not saved)
-    on_actionCloseDatabase_triggered();
+  on_actionCloseDatabase_triggered();
 
   EnterPasswordDialog dlg;
   if (dlg.exec() == dlg.Rejected)
@@ -36,11 +35,11 @@ void MainWindow::on_actionNewDatabase_triggered() {
   ui->entryList->create(dlg.password());
   enableInterface(true);
   neverSaved = true;
+  saved = false;
 }
 
 void MainWindow::on_actionOpenDatabase_triggered() {
-  if (not saved)
-    on_actionCloseDatabase_triggered();
+  on_actionCloseDatabase_triggered();
 
   QFileDialog openDlg(this, "Open database", "/home", "KeeReeng database (*.krdb)");
   openDlg.setAcceptMode(openDlg.AcceptOpen);
@@ -109,6 +108,8 @@ void MainWindow::on_actionSave_triggered() {
   saved = not neverSaved;
   if (not saved)
     QMessageBox::warning(this, "Database not saved", "Warning: database not saved!");
+  else
+    qInfo("MainWindow::Save : Database saved!");
 }
 
 void MainWindow::on_actionSaveAs_triggered() {
