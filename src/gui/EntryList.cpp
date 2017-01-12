@@ -23,10 +23,10 @@ EntryList::EntryList(QWidget *parent) :
 
 void EntryList::addItem(Entry *entry) {
   entries.append(entry);
-  updateView();
+  notify();
 }
 
-void EntryList::updateView() {
+void EntryList::notify() {
   items.clear();
   QTreeWidget::clear();
 
@@ -44,32 +44,3 @@ void EntryList::clear() {
   items.clear();
   QTreeWidget::clear();
 }
-
-/*
-EntryList::EntryList(QWidget *parent) :
-    QTreeWidget(parent),
-    db(new Database) {}
-
-void EntryList::addEntryItem(Entry *entry) {
-  db->entries.append(entry);
-  EntryListItem *item = new EntryListItem(entry);
-
-  m_entries.append(item);
-  updateList();
-}
-
-void EntryList::updateList() {
-  m_entries.clear();
-  for (const auto &i : db->entries)
-    m_entries.push_back(new EntryListItem(i));
-
-  for (const auto &i : m_entries) {
-    i->update();
-    addTopLevelItem(i);
-  }
-}
-
-void EntryList::create(const QString &password, const QString &filename) {
-  db->create(password, filename);
-}
-*/

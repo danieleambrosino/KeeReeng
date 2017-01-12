@@ -18,6 +18,8 @@ void DatabaseTest::saveAndOpenDB() {
   database.create("password");
   Q_ASSERT(database.save() == true);
   Q_ASSERT(database.error() == database.NoError);
+
+
 }
 
 QTEST_MAIN(DatabaseTest)

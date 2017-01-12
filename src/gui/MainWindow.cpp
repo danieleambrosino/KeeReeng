@@ -59,7 +59,7 @@ void MainWindow::on_actionOpenDatabase_triggered() {
   }
 
   neverSaved = false;
-  ui->entryList->updateView();
+  ui->entryList->notify();
   enableInterface(true);
 }
 
@@ -153,6 +153,7 @@ void MainWindow::on_actionNewEntry_triggered() {
    * and the db file is serialized and encrypted constantly.
    */
 
+  saved = false;
   on_actionSave_triggered();
 }
 
@@ -167,7 +168,7 @@ void MainWindow::on_entryList_itemDoubleClicked(QTreeWidgetItem *item,
   entryItem->entryData->username = dlg.username();
   entryItem->entryData->password = dlg.password();
 
-  ui->entryList->updateView();
+  ui->entryList->notify();
   saved = false;
 }
 
