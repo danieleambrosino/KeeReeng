@@ -25,7 +25,10 @@ class EntryList : public QTreeWidget, public Database {
  public:
   EntryList(QWidget *parent = nullptr);
   void addItem(Entry *);
-  void updateView();
+  void updateView();                  // this method corresponds to the "notify()" method:
+                                      // after user's interaction (which modifies data, the "subject"),
+                                      // the updateView() method updates the "observers",
+                                      // that is, the "actual" entries and the GUI
   void clear();
   using Database::create;
 

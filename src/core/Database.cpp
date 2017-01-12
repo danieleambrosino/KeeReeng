@@ -33,7 +33,7 @@ Database::Database() :
     crypto(nullptr),
     locked(true) {}
 
-Database::Database(const QString &filename, const QString &password) :
+Database::Database(const QString &password, const QString &filename) :
     file(new QFile(filename)),
     crypto(new Crypto(QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Md5))),
     locked(true) {}
@@ -65,7 +65,7 @@ bool Database::unlock() {
 
   binary = crypto->decrypt(binary);
   if (crypto->error() == Crypto::NoError)
-    locked = false;
+    locked = false;                       // leaving verbose form for clarity
 
   handleCryptoError(crypto->error());
 

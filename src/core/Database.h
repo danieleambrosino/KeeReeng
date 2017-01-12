@@ -23,7 +23,7 @@ class Database {
   };
 
   Database();
-  Database(const QString &filename, const QString &password);
+  Database(const QString &password, const QString &filename);
   ~Database();
 
   void create(const QString &password, const QString &filename = "/tmp/__tmp.krdb");

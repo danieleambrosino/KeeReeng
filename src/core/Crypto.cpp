@@ -42,7 +42,7 @@ QByteArray Crypto::encrypt(const QByteArray &bin) {
 QByteArray Crypto::decrypt(const QByteArray &bin) {
   if (bin.size() < SHA1_SIZE) {
     m_error = InvalidData;
-    qWarning("Crypto::unlock : invalid data");
+    qWarning("Crypto::decrypt : invalid data");
     return QByteArray();
   }
 
@@ -63,7 +63,7 @@ QByteArray Crypto::decrypt(const QByteArray &bin) {
 
   if (checksum != QCryptographicHash::hash(tmp, QCryptographicHash::Sha1)) {
     m_error = HashCheckFailed;
-    qWarning("Crypto::unlock : hash check failed (wrong password?)");
+    qWarning("Crypto::decrypt : hash check failed (wrong password?)");
     return QByteArray();
   }
 
