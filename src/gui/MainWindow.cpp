@@ -115,11 +115,8 @@ void MainWindow::on_actionSaveAs_triggered() {
   int errorCode = Database::NoError;
   QString filename;
 
-  int saveExec; /// temp
-
   do {
-    saveExec = saveDlg.exec();
-    if (saveExec == 0)
+    if (saveDlg.exec() == 0)
       return;
 
     filename = saveDlg.selectedFiles().first();
