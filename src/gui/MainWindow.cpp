@@ -77,18 +77,20 @@ void MainWindow::on_actionChangeMasterPassword_triggered() {
   ChangePasswordDialog dlg;
 
   while (dlg.exec() != dlg.Rejected) {
-    if (!ui->entryList->changePassword(dlg.currentPassword(),
-                                       dlg.newPassword())) {
+    if (dlg.passwordMismatch()) {
       QMessageBox::warning(this,
-                           "Incorrect password",
-                           "Wrong current password");
+                           "Error",
+                           "Password mismatch!");
       continue;
     }
 
-    if (dlg.passwordMismatch())
+    if (not ui->entryList->changePassword(dlg.currentPassword(),
+                                          dlg.newPassword())) {
       QMessageBox::warning(this,
-                           "Password mismatch",
-                           "Password verification failed");
+                           "Incorrect password",
+                           "Current password is wrong!");
+      continue;
+    }
 
     else {
       saved = false;
