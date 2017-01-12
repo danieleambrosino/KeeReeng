@@ -156,6 +156,7 @@ void MainWindow::on_actionNewEntry_triggered() {
    */
 
   saved = false;
+
   on_actionSave_triggered();
 }
 
@@ -172,15 +173,13 @@ void MainWindow::on_entryList_itemDoubleClicked(QTreeWidgetItem *item,
 
   ui->entryList->updateView();
   saved = false;
-}
 
-#include <QDebug>
+  on_actionSave_triggered();
+}
 
 void MainWindow::showEntryContextMenu(const QPoint &pos) {
   EntryList *list = ui->entryList;
   EntryListItem *item = static_cast<EntryListItem *>(list->itemAt(pos));
-
-  qDebug() << pos << item->text(0) << item->text(1) << item->text(2) << "ovvero" << item->entryData->password;
 
   QClipboard *clipboard = QApplication::clipboard();
   clipboard->setText(item->entryData->password);
