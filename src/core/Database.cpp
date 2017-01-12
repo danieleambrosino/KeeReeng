@@ -45,7 +45,7 @@ Database::~Database() {
 
 bool Database::lock() {
   if (binary.isEmpty() or locked) {
-    qWarning("Database::encrypt : nothing to lock...");
+    qWarning("Database::lock : nothing to lock...");
     return true;
   }
 
@@ -59,7 +59,7 @@ bool Database::lock() {
 
 bool Database::unlock() {
   if (binary.isEmpty() or not locked) {
-    qWarning("Database::decrypt : nothing to unlock...");
+    qWarning("Database::unlock : nothing to unlock...");
     return true;
   }
 
