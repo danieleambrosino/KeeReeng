@@ -43,9 +43,9 @@ Database::~Database() {
   delete crypto;
 }
 
-bool Database::encrypt() {
+bool Database::lock() {
   if (binary.isEmpty() or locked) {
-    qWarning("Database::encrypt : nothing to encrypt...");
+    qWarning("Database::encrypt : nothing to lock...");
     return true;
   }
 
@@ -57,9 +57,9 @@ bool Database::encrypt() {
   return locked;
 }
 
-bool Database::decrypt() {
+bool Database::unlock() {
   if (binary.isEmpty() or not locked) {
-    qWarning("Database::decrypt : nothing to decrypt...");
+    qWarning("Database::decrypt : nothing to unlock...");
     return true;
   }
 
@@ -97,7 +97,7 @@ bool Database::save() {
                   ITEM_START + i->password + ITEM_END);
 
 
-  if (not encrypt()) {
+  if (not lock()) {
     qWarning("Database::save : Encryption failed!");
     return false;
   }
@@ -122,7 +122,7 @@ bool Database::open() {
 
   binary = file->readAll();
 
-  if (not decrypt()) {
+  if (not unlock()) {
     qWarning("Database::open : Decryption failed!");
     return false;
   }

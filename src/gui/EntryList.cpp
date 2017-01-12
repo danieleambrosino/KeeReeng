@@ -23,10 +23,10 @@ EntryList::EntryList(QWidget *parent) :
 
 void EntryList::addItem(Entry *entry) {
   entries.append(entry);
-  notify();
+  updateView();
 }
 
-void EntryList::notify() {
+void EntryList::updateView() {
   items.clear();
   QTreeWidget::clear();
 

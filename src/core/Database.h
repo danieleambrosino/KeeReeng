@@ -37,8 +37,8 @@ class Database {
   QList<Entry *> entries;
 
  protected:
-  bool encrypt();
-  bool decrypt();
+  bool lock();
+  bool unlock();
   bool parseBin();
   bool checkPassword(const QString &password);
 

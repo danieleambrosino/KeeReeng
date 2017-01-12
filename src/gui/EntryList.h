@@ -25,7 +25,7 @@ class EntryList : public QTreeWidget, public Database {
  public:
   EntryList(QWidget *parent = nullptr);
   void addItem(Entry *);
-  void notify();
+  void updateView();
   void clear();
   using Database::create;
 

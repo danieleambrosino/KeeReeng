@@ -59,7 +59,7 @@ void MainWindow::on_actionOpenDatabase_triggered() {
   }
 
   neverSaved = false;
-  ui->entryList->notify();
+  ui->entryList->updateView();
   enableInterface(true);
 }
 
@@ -168,7 +168,7 @@ void MainWindow::on_entryList_itemDoubleClicked(QTreeWidgetItem *item,
   entryItem->entryData->username = dlg.username();
   entryItem->entryData->password = dlg.password();
 
-  ui->entryList->notify();
+  ui->entryList->updateView();
   saved = false;
 }
 
