@@ -103,22 +103,32 @@ void MainWindow::on_actionSave_triggered() {
   else if (not saved)
     ui->entryList->save();
 
-  saved = true;
+  saved = not neverSaved;
+  if (not saved)
+    QMessageBox::warning(this, "Database not saved", "Warning: database not saved!");
 }
 
 void MainWindow::on_actionSaveAs_triggered() {
   QFileDialog saveDlg(this, "Save as...", "/home", "KeeReeng database (*.krdb)");
   saveDlg.setAcceptMode(saveDlg.AcceptSave);
-  if (saveDlg.exec() == saveDlg.Rejected)
-    return;
 
-  QString filename = saveDlg.selectedFiles().first();
-  if (not ui->entryList->saveAs(filename)) {
-    handleError(ui->entryList->error());
-    return;
-  }
+  int errorCode = Database::NoError;
+  QString filename;
 
-  neverSaved = false;
+  int saveExec; /// temp
+
+  do {
+    saveExec = saveDlg.exec();
+    if (saveExec == 0)
+      return;
+
+    filename = saveDlg.selectedFiles().first();
+    if (not ui->entryList->saveAs(filename))
+      errorCode = handleError(ui->entryList->error());
+  } while (errorCode == Database::FileNotWriteable);
+
+  neverSaved = not (errorCode == Database::NoError);
+
   return;
 }
 
@@ -196,22 +206,22 @@ void MainWindow::enableInterface(bool value) {
   ui->entryList->setEnabled(value);
 }
 
-void MainWindow::handleError(int error) {
+int MainWindow::handleError(int error) {
   switch (error) {
     case Database::NoError:
-      break;
+      return Database::NoError;
     case Database::CorruptedDatabase:
       QMessageBox::critical(this, "Corrupted error", "Database is corrupted!");
-      break;
+      return Database::CorruptedDatabase;
     case Database::WrongPassword:
       QMessageBox::warning(this, "Wrong password", "Wrong password!");
-      break;
+      return Database::WrongPassword;
     case Database::FileNotWriteable:
       QMessageBox::critical(this, "File not writable", "Unable to write file!");
-      break;
+      return Database::FileNotWriteable;
     case Database::FileNotReadable:
       QMessageBox::critical(this, "File not readable", "Unable to read file!");
-      break;
-    default:break;
+      return Database::FileNotReadable;
+    default:return -1;
   }
 }

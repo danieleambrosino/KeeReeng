@@ -38,7 +38,7 @@ class MainWindow : public QMainWindow {
 
   private:
   void enableInterface(bool);
-  void handleError(int);
+  int handleError(int);
 
   Ui::MainWindow *ui;
   bool saved;
