@@ -76,6 +76,6 @@ void Crypto::setKey(const QByteArray &key) {
     throw std::invalid_argument(
         "Crypto::setKey : invalid key! (key size must be 16 byte)");
   }
-  Crypto::m_key = m_key;
+  m_key = key;
 }
 

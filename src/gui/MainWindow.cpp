@@ -92,6 +92,7 @@ void MainWindow::on_actionChangeMasterPassword_triggered() {
 
     else {
       saved = false;
+      on_actionSave_triggered();
       return;
     }
   }
